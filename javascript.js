@@ -10,6 +10,11 @@ function titatoBoard() {
     }
   }
 
+  const markCell = function (row, column, playerMark) {
+    board[row][column].changeCellValue(playerMark);
+    printBoard();
+  };
+
   const printBoard = function () {
     const boardThatCellsValueIsGeneratedNotTheFunction = board.map(function (
       row
@@ -21,11 +26,15 @@ function titatoBoard() {
     console.log(boardThatCellsValueIsGeneratedNotTheFunction);
   };
 
-  return { printBoard: printBoard };
+  return { printBoard: printBoard, markCell: markCell };
 }
 
 function markedCell() {
-  const cells = "";
+  let cells = " ";
+
+  const changeCellValue = function (mark) {
+    return (cells = mark);
+  };
 
   const getCellValue = function () {
     return cells;
@@ -33,12 +42,21 @@ function markedCell() {
 
   return {
     getCellValue: getCellValue,
+    changeCellValue: changeCellValue,
   };
 }
 
 function gameStart() {
   var test = titatoBoard();
   test.printBoard();
+
+  const gameRound = function (row, column, player) {
+    test.markCell(row, column, player);
+  };
+
+  return {
+    gameStart: gameRound,
+  };
 }
 
 const game = gameStart();
