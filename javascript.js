@@ -50,8 +50,27 @@ function gameStart() {
   var test = titatoBoard();
   test.printBoard();
 
-  const gameRound = function (row, column, player) {
-    test.markCell(row, column, player);
+  const players = [
+    { player: "player1", mark: "X" },
+    {
+      player: "player2",
+      mark: "O",
+    },
+  ];
+
+  let currentPlayer = players[0];
+
+  const switchPlayer = function () {
+    if (currentPlayer === players[0]) {
+      currentPlayer = players[1];
+    } else {
+      curentPlayer = players[0];
+    }
+  };
+
+  const gameRound = function (row, column) {
+    test.markCell(row, column, currentPlayer.mark);
+    switchPlayer();
   };
 
   return {
