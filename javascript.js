@@ -11,8 +11,16 @@ function titatoBoard() {
   }
 
   const markCell = function (row, column, playerMark) {
-    board[row][column].changeCellValue(playerMark);
-    printBoard();
+    const isCellNotFilled =
+      board[row][column].getCellValue() === " " ? true : false;
+
+    if (isCellNotFilled) {
+      board[row][column].changeCellValue(playerMark);
+      return true;
+    } else {
+      console.log("cell is filled");
+      return false;
+    }
   };
 
   const printBoard = function () {
@@ -47,8 +55,7 @@ function markedCell() {
 }
 
 function gameStart() {
-  var test = titatoBoard();
-  test.printBoard();
+  const board = titatoBoard();
 
   const players = [
     { player: "player1", mark: "X" },
@@ -60,17 +67,29 @@ function gameStart() {
 
   let currentPlayer = players[0];
 
+  const getCurrentPlayer = function () {
+    return currentPlayer;
+  };
+
   const switchPlayer = function () {
     if (currentPlayer === players[0]) {
       currentPlayer = players[1];
     } else {
-      curentPlayer = players[0];
+      currentPlayer = players[0];
     }
   };
 
+  const printBoard = function () {
+    console.log("now playing: ", getCurrentPlayer().player);
+    board.printBoard();
+  };
+
   const gameRound = function (row, column) {
-    test.markCell(row, column, currentPlayer.mark);
-    switchPlayer();
+    const markedCell = board.markCell(row, column, currentPlayer.mark);
+    if (markedCell === true) {
+      switchPlayer();
+    }
+    printBoard();
   };
 
   return {
