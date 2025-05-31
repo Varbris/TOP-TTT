@@ -11,6 +11,10 @@ function titatoBoard() {
   }
 
   const markCell = function (row, column, playerMark) {
+    if (row > 2 || column > 2) {
+      console.log("your input row or column is beyond 2");
+      return false;
+    }
     const isCellNotFilled =
       board[row][column].getCellValue() === " " ? true : false;
 
