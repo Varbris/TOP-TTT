@@ -30,17 +30,19 @@ function titatoBoard() {
   };
 
   const userWinCheck = function (board) {
-    const rowWinX = ["0X", "1X", "2X"];
-    const rowWinO = ["0O", "1O", "2O"];
+    const rowWinX = ["X", "X", "X"];
+    const rowWinO = ["O", "O", "O"];
+    const colWinX = [["0X"], ["0X"], ["0X"]];
     let winner = "";
     printBoard();
     //loop for checking is the array contain X, and if the X exist return the col index
+    //basically is returning the value only
     let checkX = board.map(function (row, rowIndex) {
       return row.map(function (col, colIndex) {
         if (col.getCellValue() === "X") {
-          return colIndex + "X";
+          return "X";
         } else if (col.getCellValue() === "O") {
-          return colIndex + "O";
+          return "O";
         }
       });
     });
@@ -48,26 +50,58 @@ function titatoBoard() {
     //loop for, after check X is exist, and return col index in new array from above
     // check if any row contain same data with win condition
     const checkWinner = function (checkX) {
-      console.log(checkX);
-      let checkforX = checkX
-        .map(function (perArray) {
-          if (perArray.toString() === rowWinX.toString()) {
-            winner = "x";
-            return true;
-          } else if (perArray.toString() === rowWinO.toString()) {
-            winner = "o";
-            return true;
-          } else {
-            return false;
-          }
-        })
-        .filter(function (item) {
-          return item === true;
-        });
+      //rowCheck
+      // let checkforRow = checkX
+      //   .map(function (perArray, indexrow) {
+      //     //check per row
+      //     if (perArray.toString() === rowWinX.toString()) {
+      //       winner = "x";
+      //       return true;
+      //     } else if (perArray.toString() === rowWinO.toString()) {
+      //       winner = "o";
+      //       return true;
+      //     }
+      //   })
+      //   .filter(function (item, index) {
+      //     if (item === true) {
+      //       return item;
+      //     }
+      //   });
 
-      return checkforX;
+      //check diagonal no reverse
+      const checkDiagonalX = function (checkX) {
+        const xWinFormat = [true, true, true];
+        const oWinFormat = [false, false, false];
+        let reverseArray = checkX.slice().reverse();
+        let unreverseArray = checkX;
+        const checkDiagonal = function (data) {
+          return data.map(function (row, rowIndex) {
+            if (row[rowIndex] === "X") {
+              return true;
+            } else {
+              return false;
+            }
+          });
+        };
+        let reverse = checkDiagonal(reverseArray);
+        let unreverse = checkDiagonal(unreverseArray);
+        console.log("hasil: ", reverse, unreverse);
+
+        if (
+          reverse.toString() === xWinFormat.toString() ||
+          unreverse.toString() === xWinFormat.toString()
+        ) {
+          return true;
+        }
+      };
+      // let checkreverse = checkX.reverse();
+      // console.log("reverse", checkreverse);
+
+      console.log("chek kol x", checkDiagonalX(checkX));
+
+      return checkDiagonalX(checkX);
     };
-    console.log("awerikaower", checkWinner(checkX), winner);
+    console.log("checkWinner: ", checkWinner(checkX));
   };
 
   const printBoard = function () {
@@ -140,7 +174,7 @@ function gameStart() {
   };
 
   return {
-    gameStart: gameRound,
+    start: gameRound,
   };
 }
 
