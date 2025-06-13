@@ -43,6 +43,8 @@ function titatoBoard() {
           return "X";
         } else if (col.getCellValue() === "O") {
           return "O";
+        } else {
+          return " ";
         }
       });
     });
@@ -68,38 +70,42 @@ function titatoBoard() {
       //     }
       //   });
 
-      //check diagonal no reverse
-      const checkDiagonalX = function (checkX) {
-        const xWinFormat = [true, true, true];
-        const oWinFormat = [false, false, false];
-        let reverseArray = checkX.slice().reverse();
-        let unreverseArray = checkX;
-        const checkDiagonal = function (data) {
-          return data.map(function (row, rowIndex) {
-            if (row[rowIndex] === "X") {
-              return true;
-            } else {
-              return false;
-            }
-          });
-        };
-        let reverse = checkDiagonal(reverseArray);
-        let unreverse = checkDiagonal(unreverseArray);
-        console.log("hasil: ", reverse, unreverse);
+      //check diagonal
+      // const checkDiagonalX = function (checkX) {
+      //   const xWinFormat = [true, true, true];
+      //   const oWinFormat = [false, false, false];
+      //   let reverseArray = checkX.slice().reverse();
+      //   let unreverseArray = checkX;
+      //   const checkDiagonal = function (data) {
+      //     return data.map(function (row, rowIndex) {
+      //       if (row[rowIndex] === "X") {
+      //         return true;
+      //       } else {
+      //         return false;
+      //       }
+      //     });
+      //   };
+      //   let reverse = checkDiagonal(reverseArray);
+      //   let unreverse = checkDiagonal(unreverseArray);
+      //   console.log("hasil: ", reverse, unreverse);
 
-        if (
-          reverse.toString() === xWinFormat.toString() ||
-          unreverse.toString() === xWinFormat.toString()
-        ) {
-          return true;
+      //   if (
+      //     reverse.toString() === xWinFormat.toString() ||
+      //     unreverse.toString() === xWinFormat.toString()
+      //   ) {
+      //     return true;
+      //   }
+      // };
+
+      //check col
+      let counter = 0;
+      for (let j = 0; j < checkX.length; j++) {
+        for (let i = 0; i < checkX.length; i++) {
+          console.log(checkX[i][j]);
         }
-      };
-      // let checkreverse = checkX.reverse();
-      // console.log("reverse", checkreverse);
+      }
 
-      console.log("chek kol x", checkDiagonalX(checkX));
-
-      return checkDiagonalX(checkX);
+      // console.log("chek kol x", checkDiagonalX(checkX));
     };
     console.log("checkWinner: ", checkWinner(checkX));
   };
