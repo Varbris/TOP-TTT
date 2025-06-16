@@ -98,14 +98,36 @@ function titatoBoard() {
       // };
 
       //check col
-      let counter = 0;
-      for (let j = 0; j < checkX.length; j++) {
-        for (let i = 0; i < checkX.length; i++) {
-          console.log(checkX[i][j]);
-        }
-      }
+      const checkCol = function (checkX) {
+        const winX = [true, true, true];
+        const winO = [false, false, false];
+        let checktheCol = checkX
+          .map(function (row, rowIndex, array) {
+            let colResult = row.map(function (col, colIndex) {
+              if (array[colIndex][rowIndex] === "X") {
+                return true;
+              } else if (array[colIndex][rowIndex] === "O") {
+                return false;
+              }
+            });
+            if (colResult.toString() === winX.toString()) {
+              return true;
+            } else if (colResult.toString() === winO.toString()) {
+              console.log("anjneg psyerng", colResult);
+              return false;
+            }
+          })
+          .filter(function (item) {
+            if (item !== undefined) {
+              console.log(item);
+              return item;
+            }
+          });
 
-      // console.log("chek kol x", checkDiagonalX(checkX));
+        console.log("puyeng bgst", checktheCol);
+      };
+
+      console.log("chek kol x", checkCol(checkX));
     };
     console.log("checkWinner: ", checkWinner(checkX));
   };
