@@ -53,22 +53,22 @@ function titatoBoard() {
     // check if any row contain same data with win condition
     const checkWinner = function (checkX) {
       //rowCheck
-      // let checkforRow = checkX
-      //   .map(function (perArray, indexrow) {
-      //     //check per row
-      //     if (perArray.toString() === rowWinX.toString()) {
-      //       winner = "x";
-      //       return true;
-      //     } else if (perArray.toString() === rowWinO.toString()) {
-      //       winner = "o";
-      //       return true;
-      //     }
-      //   })
-      //   .filter(function (item, index) {
-      //     if (item === true) {
-      //       return item;
-      //     }
-      //   });
+      let checkforRow = checkX
+        .map(function (perArray, indexrow) {
+          //check per row
+          if (perArray.toString() === rowWinX.toString()) {
+            winner = "x";
+            return true;
+          } else if (perArray.toString() === rowWinO.toString()) {
+            winner = "o";
+            return false;
+          }
+        })
+        .find(function (item) {
+          if (item === true || item === false) {
+            return true;
+          }
+        });
 
       //check diagonal
       // const checkDiagonalX = function (checkX) {
@@ -98,34 +98,33 @@ function titatoBoard() {
       // };
 
       //check col
-      const checkCol = function (checkX) {
-        const winX = [true, true, true];
-        const winO = [false, false, false];
-        let checktheCol = checkX
-          .map(function (row, rowIndex, array) {
-            let colResult = row.map(function (col, colIndex) {
-              if (array[colIndex][rowIndex] === "X") {
-                return true;
-              } else if (array[colIndex][rowIndex] === "O") {
-                return false;
-              }
-            });
-            if (colResult.toString() === winX.toString()) {
-              return true;
-            } else if (colResult.toString() === winO.toString()) {
-              return false;
-            }
-          })
-          .find(function (item) {
-            if (item === true || item === false) {
-              return true;
-            }
-          });
+      // const checkCol = function (checkX) {
+      //   const winX = [true, true, true];
+      //   const winO = [false, false, false];
+      //   let checktheCol = checkX
+      //     .map(function (row, rowIndex, array) {
+      //       let colResult = row.map(function (col, colIndex) {
+      //         if (array[colIndex][rowIndex] === "X") {
+      //           return true;
+      //         } else if (array[colIndex][rowIndex] === "O") {
+      //           return false;
+      //         }
+      //       });
+      //       if (colResult.toString() === winX.toString()) {
+      //         return true;
+      //       } else if (colResult.toString() === winO.toString()) {
+      //         return false;
+      //       }
+      //     })
+      //     .find(function (item) {
+      //       if (item === true || item === false) {
+      //         return true;
+      //       }
+      //     });
 
-        return checktheCol;
-      };
-
-      console.log("chek kol x", checkCol(checkX));
+      //   return checktheCol;
+      // };
+      console.log("cek row", checkforRow);
     };
     console.log("checkWinner: ", checkWinner(checkX));
   };
