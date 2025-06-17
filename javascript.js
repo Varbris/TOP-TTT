@@ -113,18 +113,16 @@ function titatoBoard() {
             if (colResult.toString() === winX.toString()) {
               return true;
             } else if (colResult.toString() === winO.toString()) {
-              console.log("anjneg psyerng", colResult);
               return false;
             }
           })
-          .filter(function (item) {
-            if (item !== undefined) {
-              console.log(item);
-              return item;
+          .find(function (item) {
+            if (item === true || item === false) {
+              return true;
             }
           });
 
-        console.log("puyeng bgst", checktheCol);
+        return checktheCol;
       };
 
       console.log("chek kol x", checkCol(checkX));
