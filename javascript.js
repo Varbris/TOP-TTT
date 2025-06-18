@@ -21,7 +21,6 @@ function titatoBoard() {
 
     if (isCellNotFilled) {
       board[row][column].changeCellValue(playerMark);
-      userWinCheck(board);
       return true;
     } else {
       console.log("cell is filled");
@@ -29,125 +28,7 @@ function titatoBoard() {
     }
   };
 
-  const userWinCheck = function (board) {
-    const rowWinX = ["X", "X", "X"];
-    const rowWinO = ["O", "O", "O"];
-    const colWinX = [["0X"], ["0X"], ["0X"]];
-    let winner = "";
-    printBoard();
-    //loop for checking is the array contain X, and if the X exist return the col index
-    //basically is returning the value only
-    let checkX = board.map(function (row, rowIndex) {
-      return row.map(function (col, colIndex) {
-        if (col.getCellValue() === "X") {
-          return "X";
-        } else if (col.getCellValue() === "O") {
-          return "O";
-        } else {
-          return " ";
-        }
-      });
-    });
-
-    //rowCheck
-    let checkforRow = function (checkX) {
-      let result = checkX
-        .map(function (perArray, indexrow) {
-          //check per row
-          if (perArray.toString() === rowWinX.toString()) {
-            winner = "x";
-            return true;
-          } else if (perArray.toString() === rowWinO.toString()) {
-            winner = "o";
-            return false;
-          }
-        })
-        .find(function (item) {
-          if (item === true || item === false) {
-            return true;
-          }
-        });
-
-      return result;
-    };
-
-    //check diagonal
-    const checkDiagonal = function (checkX) {
-      const xWinFormat = [true, true, true];
-      const oWinFormat = [false, false, false];
-      let reverseArray = checkX.slice().reverse();
-      let unreverseArray = checkX;
-      const checkDiagonal = function (data) {
-        return data.map(function (row, rowIndex) {
-          if (row[rowIndex] === "X") {
-            return true;
-          } else if (row[rowIndex] === "O") {
-            return false;
-          } else {
-            return undefined;
-          }
-        });
-      };
-      let reverse = checkDiagonal(reverseArray);
-      let unreverse = checkDiagonal(unreverseArray);
-
-      if (
-        reverse.toString() === xWinFormat.toString() ||
-        unreverse.toString() === xWinFormat.toString()
-      ) {
-        return true;
-      } else if (
-        reverse.toString() === oWinFormat.toString() ||
-        unreverse.toString() === oWinFormat.toString()
-      ) {
-        return false;
-      } else {
-        return undefined;
-      }
-    };
-
-    //check col
-    const checkCol = function (checkX) {
-      const winX = [true, true, true];
-      const winO = [false, false, false];
-      let checktheCol = checkX
-        .map(function (row, rowIndex, array) {
-          let colResult = row.map(function (col, colIndex) {
-            if (array[colIndex][rowIndex] === "X") {
-              return true;
-            } else if (array[colIndex][rowIndex] === "O") {
-              return false;
-            }
-          });
-          if (colResult.toString() === winX.toString()) {
-            return true;
-          } else if (colResult.toString() === winO.toString()) {
-            return false;
-          }
-        })
-        .find(function (item) {
-          if (item === true || item === false) {
-            return true;
-          }
-        });
-      return checktheCol;
-    };
-
-    let funcArr = [checkforRow, checkDiagonal, checkCol];
-    let resultArr = funcArr
-      .map(function (item) {
-        return item(checkX);
-      })
-      .find(function (item) {
-        if (item === true || item === false) {
-          return true;
-        }
-      });
-
-    console.log("check all checker: ", resultArr);
-  };
-
-  const printBoard = function () {
+  const getBoardValue = function () {
     const boardThatCellsValueIsGeneratedNotTheFunction = board.map(function (
       row
     ) {
@@ -155,11 +36,115 @@ function titatoBoard() {
         return cell.getCellValue();
       });
     });
-    console.log(boardThatCellsValueIsGeneratedNotTheFunction);
+    return boardThatCellsValueIsGeneratedNotTheFunction;
   };
 
-  return { printBoard: printBoard, markCell: markCell };
+  return { getBoardValue: getBoardValue, markCell: markCell, board: board };
 }
+
+const checkBoardWinner = function (theBoard) {
+  const rowWinX = ["X", "X", "X"];
+  const rowWinO = ["O", "O", "O"];
+  const colWinX = [["0X"], ["0X"], ["0X"]];
+  let winner = "";
+
+  //rowCheck
+  let checkforRow = function (boardData) {
+    let result = boardData
+      .map(function (perArray, indexrow) {
+        //check per row
+        if (perArray.toString() === rowWinX.toString()) {
+          winner = "x";
+          return true;
+        } else if (perArray.toString() === rowWinO.toString()) {
+          winner = "o";
+          return false;
+        }
+      })
+      .find(function (item) {
+        if (item === true || item === false) {
+          return true;
+        }
+      });
+
+    return result;
+  };
+
+  //check diagonal
+  const checkDiagonal = function (boardData) {
+    const xWinFormat = [true, true, true];
+    const oWinFormat = [false, false, false];
+    let reverseArray = boardData.slice().reverse();
+    let unreverseArray = boardData;
+    const checkDiagonal = function (data) {
+      return data.map(function (row, rowIndex) {
+        if (row[rowIndex] === "X") {
+          return true;
+        } else if (row[rowIndex] === "O") {
+          return false;
+        } else {
+          return undefined;
+        }
+      });
+    };
+    let reverse = checkDiagonal(reverseArray);
+    let unreverse = checkDiagonal(unreverseArray);
+
+    if (
+      reverse.toString() === xWinFormat.toString() ||
+      unreverse.toString() === xWinFormat.toString()
+    ) {
+      return true;
+    } else if (
+      reverse.toString() === oWinFormat.toString() ||
+      unreverse.toString() === oWinFormat.toString()
+    ) {
+      return false;
+    } else {
+      return undefined;
+    }
+  };
+
+  //check col
+  const checkCol = function (boardData) {
+    const winX = [true, true, true];
+    const winO = [false, false, false];
+    let checktheCol = boardData
+      .map(function (row, rowIndex, array) {
+        let colResult = row.map(function (col, colIndex) {
+          if (array[colIndex][rowIndex] === "X") {
+            return true;
+          } else if (array[colIndex][rowIndex] === "O") {
+            return false;
+          }
+        });
+        if (colResult.toString() === winX.toString()) {
+          return true;
+        } else if (colResult.toString() === winO.toString()) {
+          return false;
+        }
+      })
+      .find(function (item) {
+        if (item === true || item === false) {
+          return true;
+        }
+      });
+    return checktheCol;
+  };
+
+  let funcArr = [checkforRow, checkDiagonal, checkCol];
+  let resultArr = funcArr
+    .map(function (item) {
+      return item(theBoard);
+    })
+    .find(function (item) {
+      if (item === true || item === false) {
+        return true;
+      }
+    });
+
+  console.log("check all checker: ", resultArr);
+};
 
 function markedCell() {
   let cells = " ";
@@ -180,6 +165,7 @@ function markedCell() {
 
 function gameStart() {
   const board = titatoBoard();
+  const winChecker = checkBoardWinner;
 
   const players = [
     { player: "player1", mark: "X" },
@@ -205,7 +191,11 @@ function gameStart() {
 
   const printBoard = function () {
     console.log("now playing: ", getCurrentPlayer().player);
-    board.printBoard();
+    console.log(board.getBoardValue());
+  };
+
+  const userWinCheck = function (board) {
+    winChecker(board);
   };
 
   const gameRound = function (row, column) {
@@ -214,6 +204,7 @@ function gameStart() {
       switchPlayer();
     }
     printBoard();
+    userWinCheck(board.getBoardValue());
   };
 
   return {
