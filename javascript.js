@@ -143,7 +143,7 @@ const checkBoardWinner = function (theBoard) {
       }
     });
 
-  console.log("check all checker: ", resultArr);
+  return resultArr;
 };
 
 function markedCell() {
@@ -190,21 +190,28 @@ function gameStart() {
   };
 
   const printBoard = function () {
-    console.log("now playing: ", getCurrentPlayer().player);
+    const userWinCheck = winChecker(board.getBoardValue());
     console.log(board.getBoardValue());
-  };
-
-  const userWinCheck = function (board) {
-    winChecker(board);
+    if (userWinCheck === true) {
+      console.log(
+        "The Winner is the Mr. " + players[0].mark + " " + players[0].player
+      );
+    } else if (userWinCheck === false) {
+      console.log(
+        "The Winner is the Mr. " + players[1].mark + " " + players[1].player
+      );
+    } else {
+      console.log("now playing: ", getCurrentPlayer().player);
+    }
   };
 
   const gameRound = function (row, column) {
     const markedCell = board.markCell(row, column, currentPlayer.mark);
+
     if (markedCell === true) {
       switchPlayer();
     }
     printBoard();
-    userWinCheck(board.getBoardValue());
   };
 
   return {
