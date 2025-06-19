@@ -132,6 +132,32 @@ const checkBoardWinner = function (theBoard) {
     return checktheCol;
   };
 
+  //check board emptyness
+  const isBoardEmpty = function (boardData) {
+    let result = boardData
+      .map(function (item) {
+        return item.map(function (item2) {
+          if (item2 === " ") {
+            return true;
+          } else {
+            return false;
+          }
+        });
+      })
+      .map(function (item) {
+        if (item[0] === false && item[1] === false && item[2] === false) {
+          return false;
+        } else {
+          return undefined;
+        }
+      });
+    if (result[0] === false && result[1] === false && result[2] === false) {
+      return false;
+    } else {
+      return true;
+    }
+  };
+
   let funcArr = [checkforRow, checkDiagonal, checkCol];
   let resultArr = funcArr
     .map(function (item) {
@@ -140,10 +166,16 @@ const checkBoardWinner = function (theBoard) {
     .find(function (item) {
       if (item === true || item === false) {
         return true;
+      } else {
+        return undefined;
       }
     });
-
-  return resultArr;
+  console.log("penasaran ", resultArr);
+  if (resultArr === true || resultArr === false) {
+    return resultArr;
+  } else if (resultArr === undefined && isBoardEmpty(theBoard) === false) {
+    return "tie";
+  }
 };
 
 function markedCell() {
@@ -191,6 +223,7 @@ function gameStart() {
 
   const printBoard = function () {
     const userWinCheck = winChecker(board.getBoardValue());
+    console.log("userwincheck: ", userWinCheck);
     console.log(board.getBoardValue());
     if (userWinCheck === true) {
       console.log(
