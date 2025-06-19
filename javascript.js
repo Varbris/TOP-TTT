@@ -233,6 +233,8 @@ function gameStart() {
       console.log(
         "The Winner is the Mr. " + players[1].mark + " " + players[1].player
       );
+    } else if (userWinCheck === "tie") {
+      console.log("Oops! its A tie everybody!");
     } else {
       console.log("now playing: ", getCurrentPlayer().player);
     }
