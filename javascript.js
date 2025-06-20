@@ -67,7 +67,6 @@ const checkBoardWinner = function (theBoard) {
 
     return result;
   };
-  console.log("penasaran", checkforRow(theBoard));
 
   //check diagonal
   const checkDiagonal = function (boardData) {
@@ -153,6 +152,7 @@ const checkBoardWinner = function (theBoard) {
     }
   };
 
+  //!refactor this code later
   //main function check all condition
   let funcArr = [checkforRow, checkDiagonal, checkCol];
   let resultArr = funcArr
@@ -224,12 +224,48 @@ function gameStart() {
       console.log(
         "The Winner is the Mr. " + players[0].mark + " " + players[0].player
       );
+      //!refactor this code later
+      //countdown
+      let time = 5;
+      let endGame = setInterval(() => {
+        console.log("Game Over!");
+        console.log(time);
+        time--;
+        if (time < 0) {
+          clearInterval(endGame);
+          window.location.reload();
+        }
+      }, 1000);
     } else if (userWinCheck === false) {
       console.log(
         "The Winner is the Mr. " + players[1].mark + " " + players[1].player
       );
+      //!refactor this code later
+      //countdown
+      let time = 5;
+      let endGame = setInterval(() => {
+        console.log("Game Over!");
+        console.log(time);
+        time--;
+        if (time < 0) {
+          clearInterval(endGame);
+          window.location.reload();
+        }
+      }, 1000);
     } else if (userWinCheck === "tie") {
       console.log("Oops! its A tie everybody!");
+      //!refactor this code later
+      //countdown
+      let time = 5;
+      let endGame = setInterval(() => {
+        console.log("Game Over!");
+        console.log(time);
+        time--;
+        if (time < 0) {
+          clearInterval(endGame);
+          window.location.reload();
+        }
+      }, 1000);
     } else {
       console.log("now playing: ", getCurrentPlayer().player);
     }
