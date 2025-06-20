@@ -45,19 +45,17 @@ function titatoBoard() {
 const checkBoardWinner = function (theBoard) {
   const rowWinX = ["X", "X", "X"];
   const rowWinO = ["O", "O", "O"];
-  const colWinX = [["0X"], ["0X"], ["0X"]];
-  let winner = "";
+  const winX = [true, true, true];
+  const winO = [false, false, false];
 
   //rowCheck
   let checkforRow = function (boardData) {
     let result = boardData
-      .map(function (perArray, indexrow) {
+      .map(function (perArray) {
         //check per row
         if (perArray.toString() === rowWinX.toString()) {
-          winner = "x";
           return true;
         } else if (perArray.toString() === rowWinO.toString()) {
-          winner = "o";
           return false;
         }
       })
@@ -69,11 +67,10 @@ const checkBoardWinner = function (theBoard) {
 
     return result;
   };
+  console.log("penasaran", checkforRow(theBoard));
 
   //check diagonal
   const checkDiagonal = function (boardData) {
-    const xWinFormat = [true, true, true];
-    const oWinFormat = [false, false, false];
     let reverseArray = boardData.slice().reverse();
     let unreverseArray = boardData;
     const checkDiagonal = function (data) {
@@ -91,13 +88,13 @@ const checkBoardWinner = function (theBoard) {
     let unreverse = checkDiagonal(unreverseArray);
 
     if (
-      reverse.toString() === xWinFormat.toString() ||
-      unreverse.toString() === xWinFormat.toString()
+      reverse.toString() === winX.toString() ||
+      unreverse.toString() === winX.toString()
     ) {
       return true;
     } else if (
-      reverse.toString() === oWinFormat.toString() ||
-      unreverse.toString() === oWinFormat.toString()
+      reverse.toString() === winO.toString() ||
+      unreverse.toString() === winO.toString()
     ) {
       return false;
     } else {
@@ -107,8 +104,6 @@ const checkBoardWinner = function (theBoard) {
 
   //check col
   const checkCol = function (boardData) {
-    const winX = [true, true, true];
-    const winO = [false, false, false];
     let checktheCol = boardData
       .map(function (row, rowIndex, array) {
         let colResult = row.map(function (col, colIndex) {
@@ -158,6 +153,7 @@ const checkBoardWinner = function (theBoard) {
     }
   };
 
+  //main function check all condition
   let funcArr = [checkforRow, checkDiagonal, checkCol];
   let resultArr = funcArr
     .map(function (item) {
@@ -170,7 +166,6 @@ const checkBoardWinner = function (theBoard) {
         return undefined;
       }
     });
-  console.log("penasaran ", resultArr);
   if (resultArr === true || resultArr === false) {
     return resultArr;
   } else if (resultArr === undefined && isBoardEmpty(theBoard) === false) {
