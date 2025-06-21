@@ -312,8 +312,8 @@ function screenController() {
       "Current player: " + board.getCurrentPlayer().player;
     article.prepend(currentPlayer);
 
-    if (getWinner === true) {
-      displayWinnerModal();
+    if (getWinner === true || getWinner === false) {
+      displayWinnerModal(getWinner);
       showCurrentBoard();
     } else {
       showCurrentBoard();
@@ -337,8 +337,13 @@ function screenController() {
       });
     });
   };
-  const displayWinnerModal = function () {
+  const displayWinnerModal = function (winner) {
     const modal = document.getElementById("winnerModal");
+    if (winner === true) {
+      modal.textContent = "The Winner is X";
+    } else if (winner === false) {
+      modal.textContent = "The Winner is O";
+    }
     modal.showModal();
   };
 
