@@ -198,7 +198,7 @@ function markedCell() {
   };
 }
 
-function gameStart() {
+function gameTTT() {
   const board = titatoBoard();
   const winChecker = checkBoardWinner;
 
@@ -224,7 +224,7 @@ function gameStart() {
     }
   };
 
-  const printBoard = function () {
+  const checkWinner = function () {
     const userWinCheck = winChecker(board.getBoardValue());
     console.log("userwincheck: ", userWinCheck);
     console.log(board.getBoardValue());
@@ -277,6 +277,7 @@ function gameStart() {
     } else {
       console.log("now playing: ", getCurrentPlayer().player);
     }
+    return userWinCheck;
   };
 
   const gameRound = function (row, column) {
@@ -285,32 +286,43 @@ function gameStart() {
     if (markedCell === true) {
       switchPlayer();
     }
-    printBoard();
+    checkWinner();
   };
 
   return {
     start: gameRound,
     getBoardVar: board.getBoardVar(),
     getCurrentPlayer: getCurrentPlayer,
+    checkWinner,
   };
 }
 
-const game = gameStart();
-
 function screenController() {
-  const board = gameStart();
-  const theboard = board.getBoardVar;
+  const board = gameTTT();
   const uiGameBoard = document.getElementById("gameBoard");
   const article = document.getElementById("mainArticle");
   const currentPlayer = document.createElement("h1");
 
   const updateScreen = function () {
+    const getWinner = board.checkWinner();
+
     uiGameBoard.textContent = "";
     currentPlayer.textContent = "";
     currentPlayer.textContent =
       "Current player: " + board.getCurrentPlayer().player;
     article.prepend(currentPlayer);
-    theboard.forEach(function (row, rowIndex) {
+
+    if (getWinner === true) {
+      displayWinnerModal();
+      showCurrentBoard();
+    } else {
+      showCurrentBoard();
+    }
+  };
+
+  const showCurrentBoard = function () {
+    const boardArr = board.getBoardVar;
+    boardArr.forEach(function (row, rowIndex) {
       row.forEach(function (col, colIndex) {
         const button = document.createElement("button");
         button.dataset.colIndex = colIndex;
@@ -325,6 +337,10 @@ function screenController() {
       });
     });
   };
+  const displayWinnerModal = function () {
+    const modal = document.getElementById("winnerModal");
+    modal.showModal();
+  };
 
   uiGameBoard.addEventListener("click", function (event) {
     const rowIndex = event.target.dataset.rowIndex;
@@ -332,6 +348,7 @@ function screenController() {
     board.start(rowIndex, colIndex);
     updateScreen();
   });
+
   updateScreen();
 }
 
