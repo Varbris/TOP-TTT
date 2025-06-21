@@ -67,5 +67,28 @@ h6 {
 }
 
 article {
-  background-color: aqua;
+  background-color: rgb(24, 255, 255);
+}
+
+.cell {
+  background-color: rgba(203, 203, 203, 0.248);
+}
+
+.cell:focus {
+  background-color: rgba(0, 0, 0, 0.207);
+}
+
+main {
+  width: 500px;
+  height: 500px;
+  margin: 0 auto;
+  margin-top: 100px;
+}
+
+#gameBoard {
+  width: 500px;
+  height: 500px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
 }

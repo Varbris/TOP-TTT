@@ -28,6 +28,10 @@ function titatoBoard() {
     }
   };
 
+  const getBoardVar = function () {
+    return board;
+  };
+
   const getBoardValue = function () {
     const boardThatCellsValueIsGeneratedNotTheFunction = board.map(function (
       row
@@ -39,7 +43,11 @@ function titatoBoard() {
     return boardThatCellsValueIsGeneratedNotTheFunction;
   };
 
-  return { getBoardValue: getBoardValue, markCell: markCell, board: board };
+  return {
+    getBoardValue: getBoardValue,
+    markCell: markCell,
+    getBoardVar: getBoardVar,
+  };
 }
 
 const checkBoardWinner = function (theBoard) {
@@ -282,7 +290,37 @@ function gameStart() {
 
   return {
     start: gameRound,
+    getBoardVar: board.getBoardVar(),
+    getCurrentPlayer: getCurrentPlayer,
   };
 }
 
 const game = gameStart();
+
+function screenController() {
+  const board = gameStart();
+  const theboard = board.getBoardVar;
+
+  const uiGameBoard = document.getElementById("gameBoard");
+  const article = document.getElementById("mainArticle");
+  const currentPlayer = document.createElement("h1");
+  currentPlayer.textContent =
+    "Current player: " + board.getCurrentPlayer().player;
+  article.prepend(currentPlayer);
+  theboard.forEach(function (row, rowIndex) {
+    row.forEach(function (col, colIndex) {
+      const button = document.createElement("button");
+      button.dataset.colIndex = colIndex;
+      button.dataset.rowIndex = rowIndex;
+      button.classList.add("cell");
+      if (col.getCellValue() === "X" || col.getCellValue() === "O") {
+        button.textContent = col.getCellValue();
+      } else {
+        button.textContent = "⠀";
+      }
+      uiGameBoard.appendChild(button);
+    });
+  });
+}
+
+screenController();
