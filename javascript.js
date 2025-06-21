@@ -300,27 +300,39 @@ const game = gameStart();
 function screenController() {
   const board = gameStart();
   const theboard = board.getBoardVar;
-
   const uiGameBoard = document.getElementById("gameBoard");
   const article = document.getElementById("mainArticle");
   const currentPlayer = document.createElement("h1");
-  currentPlayer.textContent =
-    "Current player: " + board.getCurrentPlayer().player;
-  article.prepend(currentPlayer);
-  theboard.forEach(function (row, rowIndex) {
-    row.forEach(function (col, colIndex) {
-      const button = document.createElement("button");
-      button.dataset.colIndex = colIndex;
-      button.dataset.rowIndex = rowIndex;
-      button.classList.add("cell");
-      if (col.getCellValue() === "X" || col.getCellValue() === "O") {
-        button.textContent = col.getCellValue();
-      } else {
-        button.textContent = "⠀";
-      }
-      uiGameBoard.appendChild(button);
+
+  const updateScreen = function () {
+    uiGameBoard.textContent = "";
+    currentPlayer.textContent = "";
+    currentPlayer.textContent =
+      "Current player: " + board.getCurrentPlayer().player;
+    article.prepend(currentPlayer);
+    theboard.forEach(function (row, rowIndex) {
+      row.forEach(function (col, colIndex) {
+        const button = document.createElement("button");
+        button.dataset.colIndex = colIndex;
+        button.dataset.rowIndex = rowIndex;
+        button.classList.add("cell");
+        if (col.getCellValue() === "X" || col.getCellValue() === "O") {
+          button.textContent = col.getCellValue();
+        } else {
+          button.textContent = "⠀";
+        }
+        uiGameBoard.appendChild(button);
+      });
     });
+  };
+
+  uiGameBoard.addEventListener("click", function (event) {
+    const rowIndex = event.target.dataset.rowIndex;
+    const colIndex = event.target.dataset.colIndex;
+    board.start(rowIndex, colIndex);
+    updateScreen();
   });
+  updateScreen();
 }
 
 screenController();
