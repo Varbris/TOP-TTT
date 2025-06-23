@@ -66,6 +66,16 @@ h6 {
   isolation: isolate;
 }
 
+/* google font */
+@import url("https://fonts.googleapis.com/css2?family=Caprasimo&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+.inter-capurisimo {
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+}
+/* MAINCSS */
+
 article {
   background-color: rgb(24, 255, 255);
 }
@@ -99,13 +109,17 @@ main {
 
 #mainMenuModal {
   margin: 200px auto;
-  width: 500px;
+  width: 600px;
   height: 300px;
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr 3fr;
   justify-content: center;
   align-items: center;
+  border: none;
+  border-radius: 10px;
+  padding: 20px 50px;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
 }
 
 #mainMenuModal h1 {
@@ -123,11 +137,14 @@ main {
   border: none;
   background: none;
   padding: 50px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px,
+    rgba(0, 0, 0, 0.1) 0px 2px 4px 0px,
+    rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
+  border-radius: 10px;
 }
 
 .menu-button-container button:focus {
   background-color: rgba(250, 235, 215, 0.609);
-  border-radius: 10px;
 }
 .start-ico {
   background-image: url(assets/icon/play.png);
