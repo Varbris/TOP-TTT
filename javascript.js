@@ -232,48 +232,12 @@ function gameTTT() {
       console.log(
         "The Winner is the Mr. " + players[0].mark + " " + players[0].player
       );
-      //!refactor this code later
-      //countdown
-      let time = 5;
-      let endGame = setInterval(() => {
-        console.log("Game Over!");
-        console.log(time);
-        time--;
-        if (time < 0) {
-          clearInterval(endGame);
-          window.location.reload();
-        }
-      }, 1000);
     } else if (userWinCheck === false) {
       console.log(
         "The Winner is the Mr. " + players[1].mark + " " + players[1].player
       );
-      //!refactor this code later
-      //countdown
-      let time = 5;
-      let endGame = setInterval(() => {
-        console.log("Game Over!");
-        console.log(time);
-        time--;
-        if (time < 0) {
-          clearInterval(endGame);
-          window.location.reload();
-        }
-      }, 1000);
     } else if (userWinCheck === "tie") {
       console.log("Oops! its A tie everybody!");
-      //!refactor this code later
-      //countdown
-      let time = 5;
-      let endGame = setInterval(() => {
-        console.log("Game Over!");
-        console.log(time);
-        time--;
-        if (time < 0) {
-          clearInterval(endGame);
-          window.location.reload();
-        }
-      }, 1000);
     } else {
       console.log("now playing: ", getCurrentPlayer().player);
     }
@@ -354,7 +318,10 @@ function screenController() {
     updateScreen();
   });
 
-  updateScreen();
+  // updateScreen();
 }
 
 screenController();
+
+const mainMenu = document.getElementById("mainMenuModal");
+mainMenu.showModal();

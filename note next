@@ -2,7 +2,7 @@
 atleast is workin on console 
 current condition (on console):
 
-1. the printboard function on the function gamestart 
+-. the printboard function on the function gamestart 
 is print to the console
 atleast try to return the string to screencontroller
 
