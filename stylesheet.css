@@ -120,7 +120,7 @@ main {
   border: none;
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
-  gap: 20px;
+  gap: 10px;
 }
 
 #mainMenuModal h1 {
@@ -163,11 +163,16 @@ main {
   display: inline-block;
 }
 
-.player-name-form {
+.form-input-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
   gap: 10px;
   justify-content: center;
   align-items: center;
+}
+
+.player-form {
+  display: grid;
+  gap: 20px;
 }

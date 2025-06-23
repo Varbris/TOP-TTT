@@ -266,6 +266,8 @@ function screenController() {
   const uiGameBoard = document.getElementById("gameBoard");
   const article = document.getElementById("mainArticle");
   const currentPlayer = document.createElement("h1");
+  const mainMenu = document.getElementById("mainMenuModal");
+  let isPlayClicked = false;
 
   const updateScreen = function () {
     const getWinner = board.checkWinner();
@@ -317,11 +319,11 @@ function screenController() {
     board.start(rowIndex, colIndex);
     updateScreen();
   });
-
-  // updateScreen();
+  if (isPlayClicked) {
+    updateScreen();
+  } else {
+    mainMenu.showModal();
+  }
 }
 
 screenController();
-
-const mainMenu = document.getElementById("mainMenuModal");
-mainMenu.showModal();
