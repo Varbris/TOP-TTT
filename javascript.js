@@ -316,11 +316,16 @@ function screenController() {
   };
   const displayWinnerModal = function (winner) {
     const modal = document.getElementById("winnerModal");
+    const restartButton = document.getElementById("restartButton");
     if (winner === true) {
-      modal.textContent = "The Winner is X";
+      modal.prepend = "The Winner is X";
     } else if (winner === false) {
-      modal.textContent = "The Winner is O";
+      modal.prepend = "The Winner is O";
     }
+    restartButton.addEventListener("click", function () {
+      window.location.reload();
+    });
+
     modal.showModal();
   };
 

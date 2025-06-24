@@ -76,10 +76,6 @@ h6 {
 }
 /* MAINCSS */
 
-article {
-  background-color: rgb(24, 255, 255);
-}
-
 .cell {
   background-color: rgba(203, 203, 203, 0.248);
 }
@@ -89,10 +85,11 @@ article {
 }
 
 main {
-  width: 500px;
-  height: 500px;
-  margin: 0 auto;
-  margin-top: 100px;
+  width: 600px;
+  height: 650px;
+  margin: 10px auto;
+  padding: 50px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 
 #gameBoard {
@@ -103,8 +100,18 @@ main {
   grid-template-rows: repeat(3, 1fr);
 }
 
-#winnerModal {
+#winnerModal[open] {
   margin: 50px auto;
+  border: none;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
+  border-radius: 10px;
+  width: 250px;
+  height: 150px;
+}
+#winnerModal .menu-button-container {
+  grid-template-columns: repeat(1, 104px);
+  align-items: center;
+  justify-content: center;
 }
 
 #mainMenuModal {
@@ -130,23 +137,32 @@ main {
 
 .menu-button-container {
   text-align: center;
+  justify-content: center;
+  align-items: center;
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: 500px;
   gap: 10px;
 }
 
-.menu-button-container button {
+button {
   border: none;
   background: none;
   padding: 50px;
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px,
+  box-shadow: rgba(0, 0, 0, 0.07) 0px 12px 28px 0px,
     rgba(0, 0, 0, 0.1) 0px 2px 4px 0px,
     rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
   border-radius: 10px;
 }
 
-.menu-button-container button:focus {
+button[id="playButton"]:focus {
   background-color: rgba(250, 235, 215, 0.609);
+}
+button[id="playButton"]:active {
+  padding: 40px 50px;
+
+  box-shadow: rgba(0, 0, 0, 0.02) 0px 12px 28px 0px,
+    rgba(0, 0, 0, 0.05) 0px 2px 4px 0px,
+    rgba(255, 255, 255, 0.001) 0px 0px 0px 1px inset;
 }
 .start-ico {
   background-image: url(assets/icon/play.png);
@@ -162,8 +178,14 @@ main {
   width: 50px;
   height: 50px;
   display: inline-block;
+  z-index: -999;
 }
-
+button[id="restartButton"] {
+  padding: 15px;
+}
+button[id="restartButton"]:active {
+  padding: 10px;
+}
 .form-input-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
