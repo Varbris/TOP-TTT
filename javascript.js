@@ -210,6 +210,16 @@ function gameTTT() {
     },
   ];
 
+  const changePlayerName = function (player1 = "player1", player2 = "player2") {
+    return players.map(function (item, index) {
+      if (index === 0) {
+        item.player = player1;
+      } else if (index === 1) {
+        item.player = player2;
+      }
+    });
+  };
+
   let currentPlayer = players[0];
 
   const getCurrentPlayer = function () {
@@ -258,6 +268,7 @@ function gameTTT() {
     getBoardVar: board.getBoardVar(),
     getCurrentPlayer: getCurrentPlayer,
     checkWinner,
+    changePlayerName,
   };
 }
 
@@ -313,17 +324,32 @@ function screenController() {
     modal.showModal();
   };
 
+  const displayMenuModal = function (isPlayClicked) {
+    if (isPlayClicked) {
+      updateScreen();
+    } else {
+      mainMenu.showModal();
+    }
+  };
+
   uiGameBoard.addEventListener("click", function (event) {
     const rowIndex = event.target.dataset.rowIndex;
     const colIndex = event.target.dataset.colIndex;
     board.start(rowIndex, colIndex);
     updateScreen();
   });
-  if (isPlayClicked) {
-    updateScreen();
-  } else {
-    mainMenu.showModal();
-  }
+
+  const playerForm = document.getElementById("playerForm");
+  playerForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+    mainMenu.close();
+    isPlayClicked = true;
+    const player1Name = document.getElementById("player1").value;
+    const player2Name = document.getElementById("player2").value;
+    board.changePlayerName(player1Name, player2Name);
+    displayMenuModal(isPlayClicked);
+  });
+  displayMenuModal(isPlayClicked);
 }
 
 screenController();

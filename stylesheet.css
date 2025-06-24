@@ -111,18 +111,19 @@ main {
   margin: 120px auto;
   width: 600px;
   height: 450px;
+  border: none;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
+}
+#mainMenuModal[open] {
+  gap: 10px;
   display: grid;
   padding: 50px 50px;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr 3fr;
   justify-content: center;
   align-items: center;
-  border: none;
-  border-radius: 10px;
-  box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
-  gap: 10px;
 }
-
 #mainMenuModal h1 {
   text-align: center;
 }
@@ -175,4 +176,13 @@ main {
 .player-form {
   display: grid;
   gap: 20px;
+}
+.player-form input {
+  border: 1px solid rgba(0, 0, 0, 0.11);
+  border-radius: 5px;
+}
+
+.player-form input:focus {
+  border: 1px solid rgba(80, 155, 158, 0.89);
+  outline: none;
 }
