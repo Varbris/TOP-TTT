@@ -222,6 +222,13 @@ function gameTTT() {
 
   let currentPlayer = players[0];
 
+  const getPlayerObj = function (mark) {
+    return players.find(function (item) {
+      if (item.mark === mark) {
+        return true;
+      }
+    });
+  };
   const getCurrentPlayer = function () {
     return currentPlayer;
   };
@@ -269,6 +276,7 @@ function gameTTT() {
     getCurrentPlayer: getCurrentPlayer,
     checkWinner,
     changePlayerName,
+    getPlayerObj,
   };
 }
 
@@ -289,7 +297,7 @@ function screenController() {
       "Current player: " + board.getCurrentPlayer().player;
     article.prepend(currentPlayer);
 
-    if (getWinner === true || getWinner === false) {
+    if (getWinner === true || getWinner === false || getWinner === "tie") {
       displayWinnerModal(getWinner);
       showCurrentBoard();
     } else {
@@ -316,11 +324,25 @@ function screenController() {
   };
   const displayWinnerModal = function (winner) {
     const modal = document.getElementById("winnerModal");
-    const restartButton = document.getElementById("restartButton");
-    if (winner === true) {
-      modal.prepend = "The Winner is X";
+    const paragraph = document.createElement("p");
+
+    if (winner === "tie") {
+      paragraph.textContent = "It's a Tie Everybody!!!!!";
+      modal.prepend(paragraph);
+    } else if (winner === true) {
+      paragraph.textContent =
+        "The winner is Mr. " +
+        board.getPlayerObj("X").mark +
+        ", " +
+        board.getPlayerObj("X").player;
+      modal.prepend(paragraph);
     } else if (winner === false) {
-      modal.prepend = "The Winner is O";
+      paragraph.textContent =
+        "The winner is Mr. " +
+        board.getPlayerObj("O").mark +
+        ", " +
+        board.getPlayerObj("O").player;
+      modal.prepend(paragraph);
     }
     restartButton.addEventListener("click", function () {
       window.location.reload();
