@@ -1,7 +1,0 @@
-Clean up the interface to allow players to put in their names,
-
-include a button to start/restart the game 
-
-add a display element that shows the results upon game end! - setengan beres
-
-2. create dom notification that the cell is already taken
