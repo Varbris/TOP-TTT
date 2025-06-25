@@ -10,11 +10,8 @@ function titatoBoard() {
     }
   }
 
-  console.log(board);
-
   const markCell = function (row, column, playerMark) {
     if (row > 2 || column > 2) {
-      console.log("your input row or column is beyond 2");
       return false;
     }
 
@@ -26,7 +23,6 @@ function titatoBoard() {
       board[row][column].changeColStatus();
       return true;
     } else {
-      console.log("cell is filled");
       return false;
     }
   };
@@ -257,21 +253,6 @@ function gameTTT() {
 
   const checkWinner = function () {
     const userWinCheck = winChecker(board.getBoardValue());
-    console.log("userwincheck: ", userWinCheck);
-    console.log(board.getBoardValue());
-    if (userWinCheck === true) {
-      console.log(
-        "The Winner is the Mr. " + players[0].mark + " " + players[0].player
-      );
-    } else if (userWinCheck === false) {
-      console.log(
-        "The Winner is the Mr. " + players[1].mark + " " + players[1].player
-      );
-    } else if (userWinCheck === "tie") {
-      console.log("Oops! its A tie everybody!");
-    } else {
-      console.log("now playing: ", getCurrentPlayer().player);
-    }
     return userWinCheck;
   };
 
