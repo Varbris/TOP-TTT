@@ -359,7 +359,13 @@ function screenController() {
     }
   };
 
+  const displayWarningModal = function () {};
+
   uiGameBoard.addEventListener("click", function (event) {
+    let target = event.target;
+
+    if (target.tagName !== "BUTTON") return;
+
     const rowIndex = event.target.dataset.rowIndex;
     const colIndex = event.target.dataset.colIndex;
     board.start(rowIndex, colIndex);
