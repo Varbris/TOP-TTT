@@ -377,8 +377,12 @@ function screenController() {
 
   const displayWarningModal = function () {
     const modal = document.getElementById("warningModal");
+    modal.textContent = "";
+    const paragraph = document.createElement("p");
+    paragraph.textContent = "The Cell is Already Filled!";
+    modal.append(paragraph);
     modal.showModal();
-    const timeout = setTimeout(function () {
+    setTimeout(function () {
       modal.close();
     }, 2000);
   };
