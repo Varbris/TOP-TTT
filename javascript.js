@@ -10,6 +10,8 @@ function titatoBoard() {
     }
   }
 
+  console.log(board);
+
   const markCell = function (row, column, playerMark) {
     if (row > 2 || column > 2) {
       console.log("your input row or column is beyond 2");
@@ -21,6 +23,7 @@ function titatoBoard() {
 
     if (isCellNotFilled) {
       board[row][column].changeCellValue(playerMark);
+      board[row][column].changeColStatus();
       return true;
     } else {
       console.log("cell is filled");
@@ -183,6 +186,15 @@ const checkBoardWinner = function (theBoard) {
 
 function markedCell() {
   let cells = " ";
+  let isCellFilled = false;
+
+  const getColStatus = function () {
+    return isCellFilled;
+  };
+
+  const changeColStatus = function () {
+    isCellFilled = true;
+  };
 
   const changeCellValue = function (mark) {
     return (cells = mark);
@@ -195,6 +207,8 @@ function markedCell() {
   return {
     getCellValue: getCellValue,
     changeCellValue: changeCellValue,
+    getColStatus,
+    changeColStatus,
   };
 }
 
@@ -287,6 +301,7 @@ function screenController() {
   const currentPlayer = document.createElement("h1");
   const mainMenu = document.getElementById("mainMenuModal");
   let isPlayClicked = false;
+  let isColFilled = false;
 
   const updateScreen = function () {
     const getWinner = board.checkWinner();
@@ -312,6 +327,7 @@ function screenController() {
         const button = document.createElement("button");
         button.dataset.colIndex = colIndex;
         button.dataset.rowIndex = rowIndex;
+        button.dataset.isFilled = col.getColStatus();
         button.classList.add("cell");
         if (col.getCellValue() === "X" || col.getCellValue() === "O") {
           button.textContent = col.getCellValue();
@@ -359,17 +375,25 @@ function screenController() {
     }
   };
 
-  const displayWarningModal = function () {};
+  const displayWarningModal = function () {
+    const modal = document.getElementById("warningModal");
+    modal.showModal();
+    const timeout = setTimeout(function () {
+      modal.close();
+    }, 2000);
+  };
 
   uiGameBoard.addEventListener("click", function (event) {
     let target = event.target;
-
     if (target.tagName !== "BUTTON") return;
-
-    const rowIndex = event.target.dataset.rowIndex;
-    const colIndex = event.target.dataset.colIndex;
+    const rowIndex = target.dataset.rowIndex;
+    const colIndex = target.dataset.colIndex;
     board.start(rowIndex, colIndex);
     updateScreen();
+    //check if user click the same col again
+    if (target.dataset.isFilled === "true") {
+      displayWarningModal();
+    }
   });
 
   const playerForm = document.getElementById("playerForm");
